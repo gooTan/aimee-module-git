@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
-project(aimee_module_git VERSION 0.1.0 LANGUAGES C)
+project(aimee_module_git VERSION 0.2.0 LANGUAGES C)
 
 include(GNUInstallDirs)
-find_package(aimee-core 0.1.0 EXACT CONFIG REQUIRED)
+find_package(aimee-core 0.2.0 EXACT CONFIG REQUIRED)
 if(NOT TARGET aimee::aimee-core-event-bus-client)
     message(FATAL_ERROR "aimee-module-git requires the Linux event-bus client")
 endif()

@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: RakuenSoftware/aimee-core-c
-          ref: v0.1.0
+          ref: v0.2.0
           path: _aimee-core
       - run: cmake -S _aimee-core -B _core-build -DCMAKE_BUILD_TYPE=Release
       - run: cmake --build _core-build --parallel 2
