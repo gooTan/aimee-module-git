@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.16)
+project(aimee_module_git VERSION 0.1.0 LANGUAGES C)
+
+include(GNUInstallDirs)
+find_package(aimee-core 0.1.0 EXACT CONFIG REQUIRED)
+if(NOT TARGET aimee::aimee-core-event-bus-client)
+    message(FATAL_ERROR "aimee-module-git requires the Linux event-bus client")
+endif()
+add_executable(aimee-module-git runtime/main.c)
+target_compile_features(aimee-module-git PRIVATE c_std_11)
+target_link_libraries(aimee-module-git PRIVATE aimee::aimee-core-event-bus-client)
+configure_file(grants/module.grant.in ${CMAKE_CURRENT_BINARY_DIR}/git.grant @ONLY)
+install(TARGETS aimee-module-git RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/git.grant
+        DESTINATION ${CMAKE_INSTALL_DATADIR}/aimee/module-grants)

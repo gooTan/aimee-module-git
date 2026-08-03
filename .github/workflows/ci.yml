@@ -1,0 +1,20 @@
+name: module
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: RakuenSoftware/aimee-core-c
+          ref: v0.1.0
+          path: _aimee-core
+      - run: cmake -S _aimee-core -B _core-build -DCMAKE_BUILD_TYPE=Release
+      - run: cmake --build _core-build --parallel 2
+      - run: cmake --install _core-build --prefix "$PWD/_prefix"
+      - run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="$PWD/_prefix"
+      - run: cmake --build build --parallel 2
+      - run: test -x build/aimee-module-git
